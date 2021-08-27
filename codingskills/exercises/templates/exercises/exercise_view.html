@@ -1,11 +1,29 @@
 {% extends 'exercises/base.html' %}
+{% load static %}
 
-{% block title %}
-    <title>{{ object.task_name }}</title>        
+{% block head %}
+
+<title>{{ object.task_name }}</title>
+<script src={% static 'exercises/js/form_handler.js' %} type="text/javascript"></script>
+
+
 {% endblock %}
 
+
 {% block content %}
-<p>{{ object.task_id }}</p>
-<p>{{ object.task_name }}</p>
-<p>{{ object.task_content }}</p>
+<p>Id: {{ object.task_id }}</p>
+<p>Name: {{ object.task_name }}</p>
+<p>Content: {{ object.task_content }}</p>
+
+    {% for test in tests %}
+        <button id='{{ test.test_language }}' class='languages'>{{ test.test_language }}</button>
+    {%endfor%}
+
+<form id='form' method="POST" class="placeholder">
+    {% csrf_token %}
+    <input id='code' type="text" class='lang' placeholder="Add your solution here:" style="width:400px;height:600px">
+    <br>
+    <button type="submit" id="code_submit">Check!</button>
+</form>
+
 {% endblock %}

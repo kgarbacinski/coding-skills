@@ -13,21 +13,21 @@ def home(request):
 def about(request): 
     return render(request, 'exercises/about.html', {'title': 'About'})
 
-def exercises(request):
-       return render(request, 'exercises/exercises.html', 
-    {
-        'title': 'Exercises',
-        'exercises': Tasks.objects.all()
-        })
-
 class ExercisesListView(ListView):
     model = Tasks
     template_name = 'exercises/exercises.html'
     context_object_name = 'exercises'
     ordering = ['-task_created']
 
+
 class ExercisesDetailView(DetailView):
     model = Tasks
     template_name = 'exercises/exercise_view.html'
     slug_url_kwarg = 'task_name'
     slug_field = 'task_name'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tests'] = Tests.objects.filter(task_id = self.object)
+        return context
+       
