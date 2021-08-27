@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'codingskills.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'coding_exer_main',
+        'NAME': 'codingskills_db',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',
