@@ -1,5 +1,11 @@
 {% extends 'exercises/base.html' %}
 
+{% block title %}
+    <title>{{ object.task_name }}</title>        
+{% endblock %}
+
 {% block content %}
-<p>{{ exercise }}</p>
+<p>{{ object.task_id }}</p>
+<p>{{ object.task_name }}</p>
+<p>{{ object.task_content }}</p>
 {% endblock %}

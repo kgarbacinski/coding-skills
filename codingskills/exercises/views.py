@@ -11,7 +11,7 @@ def home(request):
         })
 
 def about(request): 
-    return render(request, 'exercises/about.html', {'text': 'About'})
+    return render(request, 'exercises/about.html', {'title': 'About'})
 
 def exercises(request):
        return render(request, 'exercises/exercises.html', 
@@ -29,3 +29,5 @@ class ExercisesListView(ListView):
 class ExercisesDetailView(DetailView):
     model = Tasks
     template_name = 'exercises/exercise_view.html'
+    slug_url_kwarg = 'task_name'
+    slug_field = 'task_name'
