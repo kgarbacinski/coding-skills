@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
             element.addEventListener('click', function() {
                 let language = element.id;
 
-                input.placeholder = `Add your solution in ${language}`;
+                input.placeholder = `Your solution in ${language}:`;
                 handleSend(language);
 
             });
