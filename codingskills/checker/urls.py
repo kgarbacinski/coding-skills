@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import GetExercise
+from .views import HandleFrontendData
 
 urlpatterns = [
-    path('post/', GetExercise.as_view(), name='getExercise'),
+    path('post/', HandleFrontendData.as_view(), name='frontend-data'),
 ]

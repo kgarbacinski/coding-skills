@@ -16,17 +16,14 @@
 <p>Content: {{ object.task_content }}</p>
 <div class='test' style='border:1px solid red;'>
     {% for test in tests %}
-        <p>Expected input: <b>{{ test.test_input }}</b></p>
-        <p>Expected output: <b/>{{ test.test_output }}</b></p>
+        <p>Expected input: <b><span id="exercise_input">{{ test.test_input }}</span></b></p>
+        <p>Expected output: <b/><span id="exercise_output">{{ test.test_output }}</span></b></p>
         <button id='{{ test.test_language }}' class='languages'>{{ test.test_language }}</button>
     {%endfor%}
 </div>
 
-<form id='form' method="POST" class="placeholder">
-    {% csrf_token %}
-    <input id='code' type="text" class='lang' placeholder="Please select language first!" style="width:400px;height:600px">
-    <br>
-    <button type="submit" id="code_submit">Check!</button>
-</form>
+<textarea id='task_code_field' name='task_code_field' type="text" placeholder="Please select language first!" style="width:400px;height:600px"></textarea>
+<br>
+<button type="submit" id="submit_button">Validate!</button>
 
 {% endblock %}
