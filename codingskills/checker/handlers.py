@@ -74,7 +74,7 @@ class FilesHandler(LanguageSpecs):
         self.generate_testing_values_file()
 
     def copy_files_to_container(self):
-        print('Moving files to imaganary container!')
+        print('Moving files to imaginary container!')
 
     def remove_files(self):
         shutil.rmtree(self.folder_path)
