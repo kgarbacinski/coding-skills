@@ -14,7 +14,8 @@
 <p>Exercise ID: {{ object.task_id }}</p>
 <p>Name: {{ object.task_name }}</p>
 <p>Content: {{ object.task_content }}</p>
-<div class='test' style='border:1px solid red;'>
+<p id='chosen_language'>Please select your language:</p>
+<div class='language_options'>
     {% for test in tests %}
         <p>Expected input: <b><span id="exercise_input">{{ test.test_input }}</span></b></p>
         <p>Expected output: <b/><span id="exercise_output">{{ test.test_output }}</span></b></p>
@@ -22,7 +23,7 @@
     {%endfor%}
 </div>
 
-<textarea id='task_code_field' name='task_code_field' type="text" placeholder="Please select language first!" style="width:400px;height:600px"></textarea>
+<textarea id='task_code_field' name='task_code_field' type="text" placeholder="Please select language first!" style="width:800px;height:300px"></textarea>
 <br>
 <button type="submit" id="submit_button">Validate!</button>
 
