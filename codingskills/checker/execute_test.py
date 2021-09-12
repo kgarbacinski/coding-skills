@@ -14,7 +14,8 @@ class ExecuteTest:
         self.__files_handler.generate_all_files()
         self.__files_handler.copy_files_to_container()
         self.__container_handler.get_result_from_container()
-        # self.__files_handler.remove_files()
+        self.__container_handler.stop_container()
+        self.__files_handler.remove_files()
 
 # For testing purposes
 #ExecuteTest(1, 2, 'def solution(value): return value * 2', 'Python').run_test()

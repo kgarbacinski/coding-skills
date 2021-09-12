@@ -23,6 +23,10 @@ class ContainerHandler(LanguageSpecs):
         os.system(run_generated_file)
         os.system(get_result)
 
+    def stop_container(self):
+        stop_container = f'docker kill {self.__container_name}'
+        os.system(stop_container)
+
 
 
 class FilesHandler(LanguageSpecs):
