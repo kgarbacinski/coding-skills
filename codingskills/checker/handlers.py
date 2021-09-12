@@ -1,84 +1,69 @@
 import os
 import shutil
+import uuid
 
 from language_specs import LanguageSpecs
-
-class ExecuteTest:
-    def __init__(self, input, output, code, language):
-        self.code = code
-        self.input = input
-        self.output = output
-        self.language = language
-        self.container_handler = ContainerHandler(self.language)
-        self.files_handler = FilesHandler(self.input, self.output, self.code, self.language)
-
-    def run_test(self):
-        self.container_handler.run_container()
-        self.files_handler.generate_all_files()
-        self.files_handler.copy_files_to_container()
-        self.container_handler.get_result_from_container()
-        self.files_handler.remove_files()
-
 
 
 class ContainerHandler(LanguageSpecs):
     def __init__(self, language):
-        self.language = language
-        self.file_extension = self.language_extensions.get(self.language)
-        self.containerURL = f'url/path/to/container/{self.file_extension}_env'
+        self.__language = language
+        self.__file_extension = self.language_extensions.get(self.__language)
+        self.__language_compiler = self.language_compilers.get(self.__language)
+        self.__imageURL = f'dyeroshenko/coding_challenges_{self.__file_extension}_env'
+        self.__container_name = uuid.uuid1()
 
     def run_container(self):
-        #bash command to run container here
-        #self.id_cointainer = 'docker command to get container_id'
-        #self.get_result_from_container()
-        print('Running imaginary container!')
+        start_container = f'docker run -d --name {self.__container_name} {self.__imageURL} sleep 1000'
+        os.system(start_container)
 
     def get_result_from_container(self):
-        print('Look at these awesome results!')
-        #docker exec <container> bash -c "python3 code_validator code, input, output"
+        run_generated_file = f'docker exec {self.__container_name} {self.__language_compiler} /test/code_validator.{self.__file_extension}'
+        get_result = f'docker logs {self.__container_name}'
+        os.system(run_generated_file)
+        os.system(get_result)
+
 
 
 class FilesHandler(LanguageSpecs):
     def __init__(self, input, output, code, language):
-        self.input = input
-        self.output = output
-        self.code = code
-        self.language = language
-        self.file_extension = self.language_extensions.get(self.language)
-        self.code_validator = self.code_validators.get(self.language)
-        self.folder_path = os.path.join(os.getcwd(), f'checker/exec_files/{self.file_extension}')
+        self.__input = input
+        self.__output = output
+        self.__code = code
+        self.__language = language
+        self.__file_extension = self.language_extensions.get(self.__language)
+        self.__code_validator = self.code_validators.get(self.__language)
+        self.__folder_path = os.path.join(os.getcwd(), f'checker/exec_files/{self.__file_extension}')
 
-    def generate_code_validation_file(self):
-        file_name = f'{self.folder_path}/code_validator.{self.file_extension}'
-
-        with open(file_name, 'w') as file:
-            file.write(self.code_validator)
-
-    def generate_submitted_code_file(self):
-        file_name = f'{self.folder_path}/submitted_code.{self.file_extension}'
+    def __generate_code_validation_file(self):
+        file_name = f'{self.__folder_path}/code_validator.{self.__file_extension}'
 
         with open(file_name, 'w') as file:
-            file.write(self.code)
+            file.write(self.__code_validator)
 
-    def generate_testing_values_file(self):
-        values = f"values = [{self.input}, {self.output}]"
-        file_name = f'{self.folder_path}/input_values.{self.file_extension}'
+    def __generate_submitted_code_file(self):
+        file_name = f'{self.__folder_path}/submitted_code.{self.__file_extension}'
+
+        with open(file_name, 'w') as file:
+            file.write(self.__code)
+
+    def __generate_testing_values_file(self):
+        values = f"values = [{self.__input}, {self.__output}]"
+        file_name = f'{self.__folder_path}/input_values.{self.__file_extension}'
         
         with open(file_name, 'w') as file:
             file.write(values)
 
     def generate_all_files(self):
-        os.mkdir(self.folder_path)
-        self.generate_code_validation_file()
-        self.generate_submitted_code_file()
-        self.generate_testing_values_file()
+        os.mkdir(self.__folder_path)
+        self.__generate_code_validation_file()
+        self.__generate_submitted_code_file()
+        self.__generate_testing_values_file()
 
     def copy_files_to_container(self):
-        print('Moving files to imaganary container!')
+        # copy_files_to_container = f'docker cp {self.__folder_path} {container_name}:test'
+        #os.system(copyfiles_to_container)
+        pass
 
     def remove_files(self):
-        shutil.rmtree(self.folder_path)
-
-
-# For testing purposes
-#ExecuteTest(1, 2, 'def solution(value): return value * 2', 'Python').run_test()
+        shutil.rmtree(self.__folder_path)

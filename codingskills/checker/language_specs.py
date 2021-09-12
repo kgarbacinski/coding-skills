@@ -25,3 +25,7 @@ if __name__ == '__main__':
         'Java': 'java',
         'NodeJS': 'js'
     }
+
+    language_compilers = {
+        'Python': 'python3'
+    }
