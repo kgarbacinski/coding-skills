@@ -1,17 +1,15 @@
 import os
 import shutil
-import uuid
 
 from language_specs import LanguageSpecs
 
-
 class ContainerHandler(LanguageSpecs):
-    def __init__(self, language):
+    def __init__(self, language, container_name):
         self.__language = language
         self.__file_extension = self.language_extensions.get(self.__language)
         self.__language_compiler = self.language_compilers.get(self.__language)
         self.__imageURL = f'dyeroshenko/coding_challenges_{self.__file_extension}_env'
-        self.__container_name = uuid.uuid1()
+        self.__container_name = container_name
 
     def run_container(self):
         start_container = f'docker run -d --name {self.__container_name} {self.__imageURL} sleep 1000'
@@ -30,7 +28,7 @@ class ContainerHandler(LanguageSpecs):
 
 
 class FilesHandler(LanguageSpecs):
-    def __init__(self, input, output, code, language):
+    def __init__(self, input, output, code, language, container_name):
         self.__input = input
         self.__output = output
         self.__code = code
@@ -38,6 +36,7 @@ class FilesHandler(LanguageSpecs):
         self.__file_extension = self.language_extensions.get(self.__language)
         self.__code_validator = self.code_validators.get(self.__language)
         self.__folder_path = os.path.join(os.getcwd(), f'checker/exec_files/{self.__file_extension}')
+        self.__container_name = container_name
 
     def __generate_code_validation_file(self):
         file_name = f'{self.__folder_path}/code_validator.{self.__file_extension}'
@@ -65,8 +64,8 @@ class FilesHandler(LanguageSpecs):
         self.__generate_testing_values_file()
 
     def copy_files_to_container(self):
-        # copy_files_to_container = f'docker cp {self.__folder_path} {container_name}:test'
-        #os.system(copyfiles_to_container)
+        copy_files_to_container = f'docker cp {self.__folder_path} {self.__container_name}:test'
+        os.system(copy_files_to_container)
         pass
 
     def remove_files(self):
