@@ -1,5 +1,6 @@
 import os
 import shutil
+import subprocess
 
 from language_specs import LanguageSpecs
 
@@ -16,13 +17,22 @@ class ContainerHandler(LanguageSpecs):
         os.system(start_container)
 
     def get_result_from_container(self):
-        run_generated_file = f'docker exec {self.__container_name} {self.__language_compiler} /test/code_validator.{self.__file_extension}'
-        get_result = f'docker logs {self.__container_name}'
+        run_generated_file = f'docker exec -d {self.__container_name} {self.__language_compiler} /test/code_validator.{self.__file_extension}'
+        # get_result = f'docker logs {self.__container_name}'
+        get_result = f"docker exec {self.__container_name} bash -c 'echo $STATE'"
+        check_logs = f"docker logs {self.__container_name}"
         os.system(run_generated_file)
         os.system(get_result)
+        print(os.system(check_logs))
+        
+        # result = os.popen(get_result).read()
+        # print(result)
+
+
+
 
     def stop_container(self):
-        stop_container = f'docker kill {self.__container_name}'
+        stop_container = f'docker kill {self.__container_name} && docker rm {self.__container_name}'
         os.system(stop_container)
 
 
@@ -66,7 +76,6 @@ class FilesHandler(LanguageSpecs):
     def copy_files_to_container(self):
         copy_files_to_container = f'docker cp {self.__folder_path} {self.__container_name}:test'
         os.system(copy_files_to_container)
-        pass
 
     def remove_files(self):
         shutil.rmtree(self.__folder_path)

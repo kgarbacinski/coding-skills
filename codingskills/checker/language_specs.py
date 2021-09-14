@@ -6,14 +6,17 @@ class LanguageSpecs():
         'Python' : """from submitted_code import solution
 from input_values import values
 
+import os
+
 input = values[0]
 output = values[1]
 
 def main():
     if solution(input) == output:
-        print('Passed')
-    else:
-        print('Failed')
+        os.environ['STATE'] = 'PASSED'
+    os.environ['STATE'] = 'FAILED'
+
+
 
 if __name__ == '__main__':
     main()
