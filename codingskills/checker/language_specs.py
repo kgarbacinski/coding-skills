@@ -1,8 +1,10 @@
 from dataclasses import dataclass
 
 @dataclass
+#Config file with codfe per language
 class LanguageSpecs():
     code_validators = {
+        #Add file writing functionality to this file & save to JSON
         'Python' : """from submitted_code import solution
 from input_values import values
 
@@ -12,10 +14,13 @@ input = values[0]
 output = values[1]
 
 def main():
+    result = ''
     if solution(input) == output:
-        os.environ['STATE'] = 'PASSED'
-    os.environ['STATE'] = 'FAILED'
+        result = 'Passed'
+    else:
+        result = 'Failed'
 
+    
 
 
 if __name__ == '__main__':

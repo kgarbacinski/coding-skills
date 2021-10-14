@@ -1,6 +1,5 @@
 import os
 import shutil
-import subprocess
 
 from language_specs import LanguageSpecs
 
@@ -17,18 +16,9 @@ class ContainerHandler(LanguageSpecs):
         os.system(start_container)
 
     def get_result_from_container(self):
-        run_generated_file = f'docker exec -d {self.__container_name} {self.__language_compiler} /test/code_validator.{self.__file_extension}'
-        # get_result = f'docker logs {self.__container_name}'
-        get_result = f"docker exec {self.__container_name} bash -c 'echo $STATE'"
-        check_logs = f"docker logs {self.__container_name}"
+        run_generated_file = f'docker exec -d {self.__container_name} {self.__language_compiler} -u /test/code_validator.{self.__file_extension}'
+        ##Add files handling from container and check file response
         os.system(run_generated_file)
-        os.system(get_result)
-        print(os.system(check_logs))
-        
-        # result = os.popen(get_result).read()
-        # print(result)
-
-
 
 
     def stop_container(self):
