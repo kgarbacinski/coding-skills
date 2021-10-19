@@ -12,7 +12,7 @@ class ContainerHandler:
         self.__container_name = container_name
 
     def run_container(self):
-        start_container = f'docker run -d --name {self.__container_name} -v $PWD/checker/temp/result_files:/result {self.__imageURL} sleep 100'
+        start_container = f'docker run -d --name {self.__container_name} -v $PWD/checker/temp/result_files:/result {self.__imageURL} sleep 1000'
         os.system(start_container)
 
     def run_compiler(self):

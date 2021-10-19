@@ -1,6 +1,6 @@
 class LanguageSpecs():
     code_validators = {
-        'python' : 'checker/configs/py.txt',
+        'python': 'checker/configs/py.txt',
         'java': 'checker/configs/java.txt'
     }
 
@@ -13,5 +13,5 @@ class LanguageSpecs():
 
     language_compilers = {
         'python': ['python3'],
-        'java' : ['javac', 'java']
+        'java': ['javac', 'java']
     }
