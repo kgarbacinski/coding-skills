@@ -1,4 +1,4 @@
-from handlers import ContainerHandler, FilesHandler
+from .handlers import ContainerHandler, FilesHandler
 import uuid
 
 class ExecuteTest:
@@ -15,9 +15,10 @@ class ExecuteTest:
         self.__container_handler.run_container()
         self.__files_handler.generate_all_files()
         self.__files_handler.copy_files_to_container()
-        self.__container_handler.get_result_from_container()
+        self.__container_handler.run_compiler()
+        self.__files_handler.copy_result_from_container()
+        test_result = self.__files_handler.get_result_value()
         self.__container_handler.stop_container()
-        self.__files_handler.remove_files()
+        self.__files_handler.cleanup_temp_files()
 
-# For testing purposes
-ExecuteTest(1, 2, 'def solution(value): return value * 2', 'Python').run_test()
+        return test_result

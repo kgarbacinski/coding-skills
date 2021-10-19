@@ -1,39 +1,17 @@
-from dataclasses import dataclass
-
-@dataclass
-#Config file with codfe per language
 class LanguageSpecs():
     code_validators = {
-        #Add file writing functionality to this file & save to JSON
-        'Python' : """from submitted_code import solution
-from input_values import values
-
-import os
-
-input = values[0]
-output = values[1]
-
-def main():
-    result = ''
-    if solution(input) == output:
-        result = 'Passed'
-    else:
-        result = 'Failed'
-
-    
-
-
-if __name__ == '__main__':
-    main()
-"""
+        'python' : 'checker/configs/py.txt',
+        'java': 'checker/configs/java.txt'
     }
 
     language_extensions = {
-        'Python' : 'py',
-        'Java': 'java',
-        'NodeJS': 'js'
+        'python': 'py',
+        'java': 'java',
+        'c++': 'cpp',
+        'nodejs': 'js'
     }
 
     language_compilers = {
-        'Python': 'python3'
+        'python': ['python3'],
+        'java' : ['javac', 'java']
     }

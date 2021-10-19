@@ -2,18 +2,18 @@ from django.http import HttpResponse
 from django.views.generic import View
 import json
 
-from .handlers import ExecuteTest
+from .execute_test import ExecuteTest
 
 class HandleFrontendData(View):
     def post(self, request, *args, **kwargs):
         payload = request.body
         data = json.loads(payload)
 
-        task_input = data['task_input']
-        task_output = data['task_output']
-        task_code = data['task_code']
-        task_language = data['task_language']
+        task_input = str(data['task_input'])
+        task_output = str(data['task_output'])
+        task_code = str(data['task_code'])
+        task_language = str(data['task_language']).lower()
+
+        test_result = ExecuteTest(task_input, task_output, task_code, task_language).run_test()
         
-        return HttpResponse('ok')
-
-
+        return HttpResponse(test_result)
