@@ -14,16 +14,19 @@ class ContainerHandler:
     def run_container(self):
         start_container = f'docker run -d --name {self.__container_name} -v $PWD/checker/temp/result_files:/result {self.__imageURL} sleep 1000'
         os.system(start_container)
+        print(f'====> Started container: {self.__container_name}')
 
     def run_compiler(self):
         compilers = self.__language_specs.language_compilers.get(self.__language)
 
         for compiler in compilers:
-            os.system(f"docker exec -d {self.__container_name} {compiler} -u /test/code_validator.{self.__file_extension}")
+            os.system(f"docker exec -d {self.__container_name} {compiler} /test/code_validator.{self.__file_extension}")
+            print(f'====> Run compiler: {self.__container_name}')
 
     def stop_container(self):
-        stop_container = f'docker kill {self.__container_name} && docker rm {self.__container_name}'
+        stop_container = f'docker stop {self.__container_name} && docker rm {self.__container_name}'
         os.system(stop_container)
+        print(f'====> Stopped container: {self.__container_name}')
 
 
 class FilesHandler:
@@ -45,11 +48,15 @@ class FilesHandler:
         with open(file_name, 'w') as file:
             file.write(self.__code_validator)
 
+        print('====> created code_validation_file')
+
     def __generate_submitted_code_file(self):
         file_name = f'{self.__exec_folder_path}/submitted_code.{self.__file_extension}'
 
         with open(file_name, 'w') as file:
             file.write(self.__code)
+
+        print('====> created submitted_code_file')
 
     def __generate_testing_values_file(self):
         values = f'{{\n  "input": "{self.__input}",\n  "output": "{self.__output}"\n}}'
@@ -58,25 +65,34 @@ class FilesHandler:
         with open(file_name, 'w') as file:
             file.write(values)
 
+        print('====> created values file')
+
     def generate_all_files(self):
         os.mkdir(self.__exec_folder_path)
         self.__generate_code_validation_file()
         self.__generate_submitted_code_file()
         self.__generate_testing_values_file()
 
+        print('====> files are generated')
+
     def copy_files_to_container(self):
         copy_files_to_container = f'docker cp {self.__exec_folder_path} {self.__container_name}:test'
         os.system(copy_files_to_container)
 
+        print('====> files added to container')
+
     def copy_result_from_container(self):
         get_generated_result = f'docker cp {self.__container_name}:/result/result_{self.__file_extension}.txt {self.__result_folder_path}'
         os.system(get_generated_result)
+
+        print('====> files copied from container')
 
     def get_result_value(self):
         file_path = f'checker/temp/result_files/result_{self.__file_extension}.txt'
 
         with open(file_path, 'r') as file:
             result = file.read()
+            print('====> Trying to read result from container')
             return result
 
     def cleanup_temp_files(self):
