@@ -20,7 +20,7 @@ class ContainerHandler:
         compilers = self.__language_specs.language_compilers.get(self.__language)
 
         for compiler in compilers:
-            os.system(f"docker exec -d {self.__container_name} {compiler} /py_image/py/code_validator.{self.__file_extension}")
+            os.system(f"docker exec -d {self.__container_name} {compiler} /{self.__file_extension}_image/exec_files/code_validator.{self.__file_extension}")
             print(f'====> Run compiler for: {self.__container_name}')
 
     def stop_container(self):
@@ -38,7 +38,7 @@ class FilesHandler:
         self.__language_specs = LanguageSpecs()
         self.__file_extension = self.__language_specs.language_extensions.get(self.__language)
         self.__code_validator = open(self.__language_specs.code_validators.get(self.__language), "r").read()
-        self.__exec_folder_path = os.path.join(os.getcwd(), f'checker/temp/exec_files/{self.__file_extension}/')
+        self.__exec_folder_path = os.path.join(os.getcwd(), f'checker/temp/exec_files')
         self.__result_folder_path = os.path.join(os.getcwd(), f'checker/temp/result_files')
         self.__container_name = container_name
 
@@ -76,13 +76,13 @@ class FilesHandler:
         print('====> All files are generated')
 
     def copy_files_to_container(self):
-        copy_files_to_container = f'docker cp {self.__exec_folder_path} {self.__container_name}:py_image'
+        copy_files_to_container = f'docker cp {self.__exec_folder_path} {self.__container_name}:{self.__file_extension}_image'
         os.system(copy_files_to_container)
 
         print('====> files added to container')
 
     def copy_result_from_container(self):
-        get_generated_result = f'docker cp {self.__container_name}:/py_image/py/result_{self.__file_extension}.txt {self.__result_folder_path}'
+        get_generated_result = f'docker cp {self.__container_name}:/{self.__file_extension}_image/exec_files/result_{self.__file_extension}.txt {self.__result_folder_path}'
         os.system(get_generated_result)
 
         print('====> files copied from container')

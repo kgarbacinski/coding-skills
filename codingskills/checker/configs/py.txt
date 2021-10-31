@@ -3,8 +3,8 @@ from submitted_code import solution
 import json
 import os
 
-input_file = os.path.join(os.getcwd(), 'py/input_values.json')
-result_file = os.path.join(os.getcwd(), 'py/result_py.txt')
+input_file = os.path.join(os.getcwd(), 'exec_files/input_values.json')
+result_file = os.path.join(os.getcwd(), 'exec_files/result_py.txt')
 
 def get_input_values():
     file = open(input_file)
