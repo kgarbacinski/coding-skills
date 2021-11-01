@@ -1,5 +1,6 @@
 import os
 import shutil
+import time
 
 from .language_specs import LanguageSpecs
 
@@ -26,7 +27,7 @@ class ContainerHandler:
     def stop_container(self):
         stop_container = f'docker stop {self.__container_name} && docker rm {self.__container_name}'
         os.system(stop_container)
-        print(f'====> Removed container: {self.__container_name}')
+        print(f'====> Container stopped & removed: {self.__container_name}')
 
 
 class FilesHandler:
@@ -48,7 +49,7 @@ class FilesHandler:
         with open(file_name, 'w+') as file:
             file.write(self.__code_validator)
 
-        print('====> created [code_validation_file]')
+        print('====> Created [code_validation_file]')
 
     def __generate_submitted_code_file(self):
         file_name = f'{self.__exec_folder_path}/submitted_code.{self.__file_extension}'
@@ -56,7 +57,7 @@ class FilesHandler:
         with open(file_name, 'w+') as file:
             file.write(self.__code)
 
-        print('====> created [submitted_code_file]')
+        print('====> Created [submitted_code_file]')
 
     def __generate_testing_values_file(self):
         values = f'{{\n  "input": "{self.__input}",\n  "output": "{self.__output}"\n}}'
@@ -65,7 +66,7 @@ class FilesHandler:
         with open(file_name, 'w+') as file:
             file.write(values)
 
-        print('====> created [values_file]')
+        print('====> Created [values_file]')
 
     def generate_all_files(self):
         os.mkdir(self.__exec_folder_path)
@@ -79,13 +80,13 @@ class FilesHandler:
         copy_files_to_container = f'docker cp {self.__exec_folder_path} {self.__container_name}:{self.__file_extension}_image'
         os.system(copy_files_to_container)
 
-        print('====> files added to container')
+        print('====> Files added to container')
 
     def copy_result_from_container(self):
         get_generated_result = f'docker cp {self.__container_name}:/{self.__file_extension}_image/exec_files/result_{self.__file_extension}.txt {self.__result_folder_path}'
         os.system(get_generated_result)
 
-        print('====> files copied from container')
+        print('====> Files copied from container')
 
     def get_result_value(self):
         print('====> Trying to read result from container')
@@ -97,6 +98,7 @@ class FilesHandler:
             return result
 
     def cleanup_temp_files(self):
+        time.sleep(3)
         shutil.rmtree(self.__exec_folder_path)
         shutil.rmtree(self.__result_folder_path)
         print('====> Files are removed')

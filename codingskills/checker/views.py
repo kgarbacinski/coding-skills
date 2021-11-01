@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.views.generic import View
-from django.core.signals import request_finished
+import threading
 
 import json
 
@@ -20,7 +20,11 @@ class HandleFrontendData(View):
         executeTest = ExecuteTest(task_input, task_output, task_code, task_language)
         result = executeTest.run_test()
 
-        # request_finished.connect(executeTest.container_handler.stop_container(), executeTest.files_handler.cleanup_temp_files())
-        return HttpResponse(result)
+        stop_container = threading.Thread(target=executeTest.container_handler.stop_container)
+        cleanup_files = threading.Thread(target=executeTest.files_handler.cleanup_temp_files)
 
-        #Check with multithreading vs django.signals
+        stop_container.start()
+        cleanup_files.start()
+
+
+        return HttpResponse(result)
