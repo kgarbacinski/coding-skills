@@ -92,10 +92,14 @@ class FilesHandler:
         print('====> Trying to read result from container')
         file_path = f'checker/temp/result_files/result_{self.__file_extension}.txt'
 
-        with open(file_path, 'r') as file:
-            result = file.read()
-            print(f'====> Result is available: {result}')
-            return result
+        try: 
+            with open(file_path, 'r') as file:
+                result = file.read()
+                print(f'====> Result is available: {result}')
+                return result
+        except FileNotFoundError:
+            print(f'====> Code was not compiled in container.')
+            return 'unable to compile'
 
     def cleanup_temp_files(self):
         time.sleep(3)

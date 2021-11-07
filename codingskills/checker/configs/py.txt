@@ -3,10 +3,10 @@ from submitted_code import solution
 import json
 import os
 
-input_file = os.path.join(os.getcwd(), 'exec_files/input_values.json')
-result_file = os.path.join(os.getcwd(), 'exec_files/result_py.txt')
 
 def get_input_values():
+    input_file = os.path.join(os.getcwd(), 'exec_files/input_values.json')
+    
     file = open(input_file)
     data = json.load(file)
 
@@ -28,6 +28,8 @@ def checker():
     return result
 
 def file_generator():
+    result_file = os.path.join(os.getcwd(), 'exec_files/result_py.txt')
+    
     result = checker()
 
     with open(result_file, 'w+') as file:

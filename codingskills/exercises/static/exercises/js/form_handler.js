@@ -11,7 +11,11 @@ document.addEventListener("DOMContentLoaded", function() {
         'Python': `def solution(value):
    #Add your code below:
    `,
-        'Java': 'Java support will be added soon. Try Python first!',
+        'Java': `class Solution {
+    public static String solution(String value) {
+        // Type your code here:
+      }
+    }`,
         'C++': 'Java support will be added soon. Try Python first!',
         'JavaScript': 'Java support will be added soon. Try Python first!',
     }
