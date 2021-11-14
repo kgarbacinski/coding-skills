@@ -9,14 +9,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const prepopulatedCode = {
         'Python': `def solution(value):
-   #Add your code below:
+   #Type your code here:
    `,
         'Java': `class Solution {
     public static Boolean solution(String value) {
         // Type your code here:
       }
     }`,
-        'JavaScript': 'Java support will be added soon. Try Python first!',
+        'NodeJS': `function solution(value) {
+    //Type your code here:
+        }
+        
+    module.exports = { solution };`,
     }
 
 

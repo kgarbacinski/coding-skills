@@ -4,19 +4,20 @@ from dataclasses import dataclass
 class LanguageSpecs():
     code_validators = {
         'python': 'checker/configs/py.txt',
-        'java': 'checker/configs/java.txt'
+        'java': 'checker/configs/java.txt',
+        'nodejs': 'checker/configs/nodejs.txt'
     }
-
-    xml_template = 'checker/configs/xml_template.txt'
 
     language_extensions = {
         'python': 'py',
         'java': 'java',
-        'c++': 'cpp',
         'nodejs': 'js'
     }
 
     language_compilers = {
         'python': ['python3'],
-        'java': ['javac', 'java']
+        'java': ['javac', 'java'],
+        'nodejs': ['node']
     }
+
+    xml_template = 'checker/configs/xml_template.txt'

@@ -1,0 +1,51 @@
+const solution_module = require('./Solution.js');
+
+const fs = require('fs');
+const xml2js = require('xml2js');
+
+
+function getInputValues() {
+    let path = ('./input_values.xml');
+    let xml = fs.readFileSync(path, "utf8");
+    let parser = new xml2js.Parser();
+    let values = new Array();
+
+    parser.parseString(xml, function(error, result) {
+        if (error == null) {
+            input = result['values']['input'][0];
+            output = result['values']['output'][0];
+
+            values.push(input, output);
+        } else {
+            console.log(error);
+        }
+    });
+
+    return values;
+};
+
+function validate() {
+    let values = getInputValues();
+    let output = values[1].toLowerCase();
+    let solution = solution_module.solution().toString();
+
+    let result = '';
+
+    if (solution == output) {
+        result = 'Passed';
+    } else {
+        result = 'Failed';
+    }
+
+    return result;
+}
+
+function fileGenerator() {
+    let path = ('./result.txt');
+    let result = validate();
+
+    fs.writeFileSync(path, result, 'utf8');
+}
+
+//Main call
+fileGenerator();
