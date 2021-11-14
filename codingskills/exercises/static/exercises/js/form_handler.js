@@ -12,11 +12,10 @@ document.addEventListener("DOMContentLoaded", function() {
    #Add your code below:
    `,
         'Java': `class Solution {
-    public static String solution(String value) {
+    public static Boolean solution(String value) {
         // Type your code here:
       }
     }`,
-        'C++': 'Java support will be added soon. Try Python first!',
         'JavaScript': 'Java support will be added soon. Try Python first!',
     }
 

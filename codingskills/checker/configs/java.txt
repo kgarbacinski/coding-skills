@@ -1,25 +1,60 @@
-import org.apache.commons.io.IOUtils;
-import java.io.FileInputStream;
+import java.io.*;
+import javax.xml.parsers.*;
+import org.w3c.dom.*;
+import org.xml.sax.*;
 
-class TestChecker {
+class Validator {
     public static void main(String[] args) {
-       GetInputValues.fileGenerator();
+        writeToFile();
     }
 
-    public static void fileGenerator(){
+    public static String[] getInputValues() {
+
+        String input = "";
+        String output = "";
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse("input_values.xml");
+            doc.getDocumentElement().normalize();
+            
+            String i = doc.getElementsByTagName("input").item(0).getTextContent();
+            String o = doc.getElementsByTagName("output").item(0).getTextContent();
+            input = i;
+            output = o;
+
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
         
+        String[] result = {input, output};
+        return result;
     }
 
-    public static String checker(){
-        GetInputValues.checker()
+    public static String performTest() {
+        String input = getInputValues()[0];
+        String output = getInputValues()[1].toLowerCase();
+        String solution = String.valueOf(Solution.solution(input));
+
+        if (output.equals(solution)) {
+            return "Passed";
+        } else {
+            return "Failed";
+        }
     }
 
-    public static String getInputValues(){
-        GetInputValues.fileGenerator();
-        String path = System.getProperty("user.dir") + 'exec_files/input_values.json';
-        InputStream is = new FileInputStream(path);
-        String jsonTxt = IOUtils.toString(is, "UTF-8");
-        JSONObject json = new JSONObject(jsonTxt);
-        return new Array(json.get('input'), json.get('output'));
+    public static void writeToFile() {
+        try {
+            FileWriter writer = new FileWriter("result.txt");
+            writer.write(performTest());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

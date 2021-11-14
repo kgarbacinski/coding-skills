@@ -1,17 +1,16 @@
-from submitted_code import solution
+from Solution import solution
 
-import json
+import xml.etree.ElementTree as ET
 import os
 
-
 def get_input_values():
-    input_file = os.path.join(os.getcwd(), 'exec_files/input_values.json')
+    input_file = os.path.join(os.getcwd(), 'exec_files/input_values.xml')
     
-    file = open(input_file)
-    data = json.load(file)
+    tree = ET.parse(input_file)
+    root = tree.getroot()
+    input = root[0].text
+    output = root[1].text
 
-    input = data['input']
-    output = data['output']
 
     return input, output
     

@@ -20,9 +20,15 @@ class ContainerHandler:
     def run_compiler(self):
         compilers = self.__language_specs.language_compilers.get(self.__language)
 
-        for compiler in compilers:
-            os.system(f"docker exec -d {self.__container_name} {compiler} /{self.__file_extension}_image/exec_files/code_validator.{self.__file_extension}")
-            print(f'====> Run compiler for: {self.__container_name}')
+        for index, compiler in enumerate(compilers):
+            if index > 0:
+                task = f"docker exec -d {self.__container_name} {compiler} /{self.__file_extension}_image/exec_files/Validator"
+                os.system(task)
+                print(f'====> Run task: {task}')
+            else:
+                task = f"docker exec -d {self.__container_name} {compiler} /{self.__file_extension}_image/exec_files/Validator.{self.__file_extension}"
+                os.system(task)
+                print(f'====> Run task: {task}')
 
     def stop_container(self):
         stop_container = f'docker stop {self.__container_name} && docker rm {self.__container_name}'
@@ -38,13 +44,14 @@ class FilesHandler:
         self.__language = language
         self.__language_specs = LanguageSpecs()
         self.__file_extension = self.__language_specs.language_extensions.get(self.__language)
-        self.__code_validator = open(self.__language_specs.code_validators.get(self.__language), "r").read()
+        self.__code_validator = open(self.__language_specs.code_validators.get(self.__language), 'r').read()
+        self.__xml_template = open(self.__language_specs.xml_template, 'r').read()
         self.__exec_folder_path = os.path.join(os.getcwd(), f'checker/temp/exec_files')
         self.__result_folder_path = os.path.join(os.getcwd(), f'checker/temp/result_files')
         self.__container_name = container_name
 
     def __generate_code_validation_file(self):
-        file_name = f'{self.__exec_folder_path}/code_validator.{self.__file_extension}'
+        file_name = f'{self.__exec_folder_path}/Validator.{self.__file_extension}'
 
         with open(file_name, 'w+') as file:
             file.write(self.__code_validator)
@@ -52,7 +59,7 @@ class FilesHandler:
         print('====> Created [code_validation_file]')
 
     def __generate_submitted_code_file(self):
-        file_name = f'{self.__exec_folder_path}/submitted_code.{self.__file_extension}'
+        file_name = f'{self.__exec_folder_path}/Solution.{self.__file_extension}'
 
         with open(file_name, 'w+') as file:
             file.write(self.__code)
@@ -60,8 +67,11 @@ class FilesHandler:
         print('====> Created [submitted_code_file]')
 
     def __generate_testing_values_file(self):
-        values = f'{{\n  "input": "{self.__input}",\n  "output": "{self.__output}"\n}}'
-        file_name = f'{self.__exec_folder_path}/input_values.json'
+        values = self.__xml_template.replace(
+            'INPUT_VALUE', self.__input).replace(
+                'OUTPUT_VALUE', self.__output)
+                
+        file_name = f'{self.__exec_folder_path}/input_values.xml'
         
         with open(file_name, 'w+') as file:
             file.write(values)
