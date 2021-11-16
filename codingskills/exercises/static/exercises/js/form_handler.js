@@ -16,11 +16,12 @@ document.addEventListener("DOMContentLoaded", function() {
         // Type your code here:
       }
     }`,
-        'NodeJS': `function solution(value) {
+        'Node': `function solution(value) {
     //Type your code here:
-        }
+    
+}
         
-    module.exports = { solution };`,
+module.exports = { solution };`,
     }
 
 

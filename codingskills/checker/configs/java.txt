@@ -16,7 +16,7 @@ class Validator {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse("input_values.xml");
+            Document doc = builder.parse("./exec_files/input_values.xml");
             doc.getDocumentElement().normalize();
             
             String i = doc.getElementsByTagName("input").item(0).getTextContent();
@@ -50,7 +50,7 @@ class Validator {
 
     public static void writeToFile() {
         try {
-            FileWriter writer = new FileWriter("result.txt");
+            FileWriter writer = new FileWriter("./exec_files/result_java.txt");
             writer.write(performTest());
             writer.close();
         } catch (IOException e) {

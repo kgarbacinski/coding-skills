@@ -5,7 +5,7 @@ const xml2js = require('xml2js');
 
 
 function getInputValues() {
-    let path = ('./input_values.xml');
+    let path = ('./exec_files/input_values.xml');
     let xml = fs.readFileSync(path, "utf8");
     let parser = new xml2js.Parser();
     let values = new Array();
@@ -41,7 +41,7 @@ function validate() {
 }
 
 function fileGenerator() {
-    let path = ('./result.txt');
+    let path = ('./exec_files/result_js.txt');
     let result = validate();
 
     fs.writeFileSync(path, result, 'utf8');
