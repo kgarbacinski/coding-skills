@@ -47,5 +47,5 @@ function fileGenerator() {
     fs.writeFileSync(path, result, 'utf8');
 }
 
-//Main call
+//Main function call
 fileGenerator();

@@ -43,7 +43,7 @@ module.exports = { solution };`,
             let postData = {
                 'task_input': exerciseInput.textContent,
                 'task_output': exerciseOutput.textContent,
-                'task_code': task_code_field.value,
+                'task_code': taskCodeField.value,
                 'task_language': language
             };
             fetch(`${window.origin}/checker/post/`, {
