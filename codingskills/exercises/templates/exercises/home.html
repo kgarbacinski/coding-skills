@@ -6,4 +6,9 @@
 
 {% block content %}
 <h1>{{ text }}</h1>
+<br>
+{% for task in tasks %}
+    <p>{{ task.task_name|upper }}</p>
+    <p>Content: {{ task.task_content }}</p>
+{% endfor %}
 {% endblock %}

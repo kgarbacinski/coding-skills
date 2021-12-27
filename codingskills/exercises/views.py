@@ -7,17 +7,15 @@ def home(request):
     return render(request, 'exercises/home.html', 
     {
         'title': 'Home',
-        'text': 'Welcome to Coding Exercises!'
+        'text': 'Welcome to Coding Exercises!',
+        'tasks': Tasks.objects.all()
         })
 
 def about(request): 
-    return render(request, 'exercises/about.html', {'title': 'About'})
-
-class ExercisesListView(ListView):
-    model = Tasks
-    template_name = 'exercises/exercises.html'
-    context_object_name = 'exercises'
-    ordering = ['-task_created']
+    return render(request, 'exercises/about.html', 
+    {
+        'title': 'About', 
+        'text': 'Lorem Ipsum'})
 
 
 class ExercisesDetailView(DetailView):
