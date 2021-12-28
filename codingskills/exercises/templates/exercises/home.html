@@ -1,14 +1,26 @@
 {% extends 'exercises/base.html' %}
+{% load static %}
 
 {% block head %}
-<title>Home</title>        
+<title>Home</title> 
 {% endblock %}
 
 {% block content %}
-<h1>{{ text }}</h1>
-<br>
-{% for task in tasks %}
-    <p>{{ task.task_name|upper }}</p>
-    <p>Content: {{ task.task_content }}</p>
+<div class=fakeMenu>
+    <div class="fakeButtons fakeClose"></div>
+    <div class="fakeButtons fakeMinimize"></div>
+    <div class="fakeButtons fakeZoom"></div>
+  </div>
+  <div class="fakeScreen">
+    <p class="line1">user$: {{ text }}<span class="cursor1">_</span></p>
+    <p class="line2">user$: This is the simple app to show how to use Docker to fire a code in different envs (aka Algoexpert).<span class="cursor2">_</span></p>
+    <p class="line3">user$: Check any of avialable solutions below:<span class="cursor3">_</span></p>
+    {% for task in tasks %}
+    <p class='line4'>##################################</p>
+    <p class="line4">{{ task.task_name|upper }}</p>
+    <p class="line4">{{ task.task_content }}</p>
 {% endfor %}
+    <p class="endline">><span class="endcursor">_</span></p>
+  </div>
+
 {% endblock %}

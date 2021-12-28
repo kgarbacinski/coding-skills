@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.views.generic import View
 import threading
 import json
@@ -17,7 +17,8 @@ class HandleFrontendData(View):
         task_language = str(data['task_language']).lower()
 
         executeTest = ExecuteTest(task_input, task_output, task_code, task_language)
-        result = executeTest.run_test()
+        test_result = executeTest.run_test()
+        data = {'response': test_result}
 
         stop_container = threading.Thread(target=executeTest.container_handler.stop_container)
         cleanup_files = threading.Thread(target=executeTest.files_handler.cleanup_temp_files)
@@ -26,4 +27,4 @@ class HandleFrontendData(View):
         cleanup_files.start()
 
 
-        return HttpResponse(result)
+        return JsonResponse(data)

@@ -1,0 +1,22 @@
+textarea {
+    background-color: black;
+    color: #CDEE69;
+    border: 1px solid #CDEE69;
+    position: relative;
+    left: 6%;
+}
+
+.show_element {
+    animation: cssAnimation 0s 5s forwards;
+    visibility: hidden;
+}
+
+@keyframes cssAnimation {
+    to {
+        visibility: visible;
+    }
+}
+
+::placeholder {
+    color: #CDEE69;
+}

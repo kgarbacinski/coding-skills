@@ -5,7 +5,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const submitButton = document.getElementById('submit_button');
     const taskCodeField = document.getElementById('task_code_field');
     const chosenLanguageField = document.getElementById('chosen_language');
-    const csrfToken = getCookie('csrftoken');
+    const csrfToken = generateCookie('csrftoken');
+    const resultField = document.getElementById('result');
+    const lastCursor = document.getElementById('last_cursor')
 
     const prepopulatedCode = {
         'Python': `def solution(value):
@@ -31,14 +33,14 @@ module.exports = { solution };`,
         arrayed_buttons.forEach(element => {
             element.addEventListener('click', function() {
                 let language = element.id;
-                chosenLanguageField.textContent = `Your solution in ${language}:`;
+                chosenLanguageField.innerHTML = `Your solution in <span class='colored_text'>${language}</span>:`;
                 taskCodeField.textContent = prepopulatedCode[language];
-                handleSend(language);
+                sendData(language);
             });
         });
     };
 
-    function handleSend(language) {
+    function sendData(language) {
         submitButton.addEventListener('click', function(event) {
             let postData = {
                 'task_input': exerciseInput.textContent,
@@ -55,13 +57,28 @@ module.exports = { solution };`,
                     'X-CSRFToken': csrfToken
                 }
             }).then(function(response) {
-                console.log(response);
+                response.json()
+                    .then(function(data) {
+                        console.log(data['response']);
+                        if (data['response']) {
+                            let result = data['response'];
+                            resultField.textContent += result;
+                            resultField.style.visibility = 'visible';
+                            lastCursor.classList.add('pause_animation');
+
+                            if (result == 'Passed') {
+                                resultField.classList.add('test_passed');
+                            } else {
+                                resultField.classList.add('test_failed');
+                            }
+                        }
+                    })
             });
         });
 
     };
 
-    function getCookie(name) {
+    function generateCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
             const cookies = document.cookie.split(';');

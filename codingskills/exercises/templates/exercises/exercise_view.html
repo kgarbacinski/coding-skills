@@ -2,29 +2,30 @@
 {% load static %}
 
 {% block head %}
-
 <title>{{ object.task_name }}</title>
-<script src={% static 'exercises/js/form_handler.js' %} type="text/javascript"></script>
-
-
+<script src={% static 'exercises/js/main.js' %} type="text/javascript"></script>
+<link rel="stylesheet" href={% static 'exercises/css/view.css' %} type="text/css">
 {% endblock %}
 
-
 {% block content %}
-<p>Exercise ID: {{ object.task_id }}</p>
-<p>Name: {{ object.task_name }}</p>
-<p>Content: {{ object.task_content }}</p>
-<p id='chosen_language'>Please select your language:</p>
-<div class='language_options'>
-    {% for test in tests %}
-        <p>Expected input: <b><span id="exercise_input">{{ test.test_input }}</span></b></p>
-        <p>Expected output: <b/><span id="exercise_output">{{ test.test_output }}</span></b></p>
-        <button id='{{ test.test_language }}' class='languages'>{{ test.test_language }}</button>
-    {%endfor%}
-</div>
-
-<textarea id='task_code_field' name='task_code_field' type="text" placeholder="Please select language first!" style="width:800px;height:300px"></textarea>
-<br>
-<button type="submit" id="submit_button">Validate!</button>
-
+<div class=fakeMenu>
+    <div class="fakeButtons fakeClose"></div>
+    <div class="fakeButtons fakeMinimize"></div>
+    <div class="fakeButtons fakeZoom"></div>
+  </div>
+  <div class="fakeScreen">
+    <p class="line1">Exercise ID: {{ object.task_id }}</p>
+    <p class="line1">Name: {{ object.task_name }}</p>
+    <p class="line1">{{ object.task_content }}</p>
+    <p class="line1"> Input: <b><span id="exercise_input" class='colored_text'>{{ tests.0.test_input }}</span></b> | Expected output: <b/><span id="exercise_output" class='colored_text'>{{ tests.0.test_output }}</span></b><span class="cursor1">_</span></p>
+    <p class="line2" id='chosen_language'>Please select your language:</p>
+    <div class='language_options'>
+        {% for test in tests %}
+            <p class='line2'><button id='{{ test.test_language }}' class='languages'>{{ test.test_language }}</button></p>
+        {%endfor%}
+    </div>
+    <textarea id='task_code_field' class='show_element' name='task_code_field' type="text" placeholder="Please select language first!" style="width:400px;height:300px"></textarea>
+    <button type="submit" class='show_element' id="submit_button">Validate!</button>
+    <p class='endline'>Result<span class="endcursor" id='last_cursor'>_</span> <span id='result'></span></p>
+  </div>
 {% endblock %}
