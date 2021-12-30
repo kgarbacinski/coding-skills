@@ -27,28 +27,29 @@ module.exports = { solution };`,
     }
 
 
-    function updateViewWithLanguage() {
+    function updateViewWithLanguages() {
         let arrayed_buttons = Array.prototype.slice.call(langButtons);
 
         arrayed_buttons.forEach(element => {
-            element.addEventListener('click', function() {
+            element.addEventListener('click', async function() {
                 let language = element.id;
                 chosenLanguageField.innerHTML = `Your solution in <span class='colored_text'>${language}</span>:`;
                 taskCodeField.textContent = prepopulatedCode[language];
-                sendData(language);
+                await sendData(language);
             });
         });
     };
 
-    function sendData(language) {
-        submitButton.addEventListener('click', function(event) {
+    async function sendData(language) {
+        submitButton.addEventListener('click', async function(event) {
             let postData = {
                 'task_input': exerciseInput.textContent,
                 'task_output': exerciseOutput.textContent,
                 'task_code': taskCodeField.value,
                 'task_language': language
             };
-            fetch(`${window.origin}/checker/post/`, {
+
+            let response = await fetch(`${window.origin}/checker/post/`, {
                 body: JSON.stringify(postData),
                 method: 'POST',
                 headers: {
@@ -56,27 +57,33 @@ module.exports = { solution };`,
                     'X-Requested-With': 'XMLHttpRequest',
                     'X-CSRFToken': csrfToken
                 }
-            }).then(function(response) {
-                response.json()
-                    .then(function(data) {
-                        console.log(data['response']);
-                        if (data['response']) {
-                            let result = data['response'];
-                            resultField.textContent += result;
-                            resultField.style.visibility = 'visible';
-                            lastCursor.classList.add('pause_animation');
-
-                            if (result == 'Passed') {
-                                resultField.classList.add('test_passed');
-                            } else {
-                                resultField.classList.add('test_failed');
-                            }
-                        }
-                    })
             });
-        });
 
+            let data = await response.json();
+            handleFrontEnd(data);
+        });
     };
+
+
+    function handleFrontEnd(data) {
+        console.log(data['response']);
+
+        if (data['response']) {
+            let result = data['response'];
+            resultField.textContent += result;
+            resultField.style.visibility = 'visible';
+            lastCursor.classList.add('pause_animation');
+
+            if (result == 'Passed') {
+                resultField.classList.add('test_passed');
+            } else {
+                resultField.classList.add('test_failed');
+            }
+        }
+        setTimeout(function() {
+            location.reload();
+        }, 5000);
+    }
 
     function generateCookie(name) {
         let cookieValue = null;
@@ -93,5 +100,5 @@ module.exports = { solution };`,
         return cookieValue;
     };
 
-    updateViewWithLanguage();
+    updateViewWithLanguages();
 });

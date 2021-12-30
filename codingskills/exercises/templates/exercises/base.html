@@ -5,12 +5,19 @@
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href={% static 'exercises/css/main.css' %} type="text/css">
+    <link rel="stylesheet" href={% static "exercises/css/main.css" %} type="text/css">
     {% block head %}
     {% endblock %}
     </head>
     <body>
-    {% block content %}
-    {% endblock %}
+        <div class=fakeMenu>
+            <div class="fakeButtons fakeClose"></div>
+            <div class="fakeButtons fakeMinimize"></div>
+            <div class="fakeButtons fakeZoom"></div>
+        </div>
+        <div class="fakeScreen">
+            {% block content %}
+            {% endblock %}
+        </div>
     </body>
 </html>
