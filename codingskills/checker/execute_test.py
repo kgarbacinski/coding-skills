@@ -10,6 +10,10 @@ class ExecuteTest:
         output: str
         code: str
         language: str
+        container_name: str - randomly generated string using uuid library
+        container_handler: initialized ContainerHandler class
+        files_handler: initialized FilesHandler class
+
 
     Methods: 
         container_handler: returns the instance of ContainerHandler
