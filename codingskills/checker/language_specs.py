@@ -1,7 +1,15 @@
 from dataclasses import dataclass
 
+
 @dataclass(frozen=True)
 class LanguageSpecs():
+    """
+    This class is used to store path to config files & language specific extensions / commands.
+    
+    Callers: 
+        ContainerHandler
+        FilesHandler
+    """
     code_validators = {
         'python': 'checker/configs/py.txt',
         'java': 'checker/configs/java.txt',

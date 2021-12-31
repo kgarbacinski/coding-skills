@@ -1,9 +1,23 @@
 import uuid
-
 from .handlers import ContainerHandler, FilesHandler
 
+
 class ExecuteTest:
-    def __init__(self, input, output, code, language):
+    """
+    This class takes the input fetched from the frontend and executes the sequence to verify solution in container.
+    Attributes:
+        input: str
+        output: str
+        code: str
+        language: str
+
+    Methods: 
+        container_handler: returns the instance of ContainerHandler
+        container_handler: returns the instance of FilesHandler
+    
+    Caller: HandleFrontendData() from views.py
+    """
+    def __init__(self, input: str, output: str, code: str, language: str) -> None:
         self.__code = code
         self.__input = input
         self.__output = output
@@ -13,14 +27,14 @@ class ExecuteTest:
         self.__files_handler = FilesHandler(self.__input, self.__output, self.__code, self.__language, self.__container_name)
 
     @property
-    def container_handler(self):
+    def container_handler(self) -> ContainerHandler:
         return self.__container_handler
 
     @property
-    def files_handler(self):
+    def files_handler(self) -> FilesHandler:
         return self.__files_handler
 
-    def run_test(self):
+    def run_test(self) -> str:
         self.__container_handler.run_container()
         self.__files_handler.generate_all_files()
         self.__files_handler.copy_files_to_container()

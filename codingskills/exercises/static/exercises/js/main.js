@@ -1,3 +1,9 @@
+/**
+ * @fileoverview 
+ * Main JS file to handle POST requests to backend
+ * and modify the layout in frontent.
+ */
+
 document.addEventListener("DOMContentLoaded", function() {
     const langButtons = document.getElementsByClassName("languages");
     const exerciseInput = document.getElementById('exercise_input');
@@ -26,7 +32,13 @@ document.addEventListener("DOMContentLoaded", function() {
 module.exports = { solution };`,
     }
 
-
+    /**
+     * @function
+     * Reads the value from 'language' buttons
+     * Set event listener on each button
+     * Updates text_area with specific template based on auser decision
+     * Calls sendData()
+     */
     function updateViewWithLanguages() {
         let arrayed_buttons = Array.prototype.slice.call(langButtons);
 
@@ -40,6 +52,14 @@ module.exports = { solution };`,
         });
     };
 
+    /**
+     * @function 
+     * @param {str} language 
+     * 
+     * POSTs the data collected from the view to the backend to host/checker/post/
+     * Collects jsonified response from backend (sample: {'response': 'passed'})
+     * Calls handleFrontEnd() and passes response 
+     */
     async function sendData(language) {
         submitButton.addEventListener('click', async function(event) {
             let postData = {
@@ -64,7 +84,14 @@ module.exports = { solution };`,
         });
     };
 
-
+    /**
+     * @function
+     * @param {str} data 
+     * 
+     * If data is avalable  renders & modifies result div
+     * Applies CSS style based on the data content
+     * After response is received and changes rendered, reloads the page after 5 seconds.
+     */
     function handleFrontEnd(data) {
         console.log(data['response']);
 
@@ -85,6 +112,13 @@ module.exports = { solution };`,
         }, 5000);
     }
 
+    /**
+     * @function
+     * @param {str} name 
+     * @returns str
+     * 
+     * Supportive function to generate csrftoken.
+     */
     function generateCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {

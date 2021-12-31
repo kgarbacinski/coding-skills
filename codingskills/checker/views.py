@@ -1,13 +1,23 @@
-from django.http import JsonResponse
-from django.views.generic import View
 import threading
 import json
+
+from django.http import JsonResponse
+from django.views.generic import View
+from django.http.request import QueryDict
+
 
 from .execute_test import ExecuteTest
 
 
 class HandleFrontendData(View):
-    def post(self, request, *args, **kwargs):
+    """
+    This is the endpoint for frontend to get the data and call ExecuteTest to initiate the sequence code validation.
+    Threading implemented to cleanup generated file from FilesHandler and stop container run by ContainerHandler.
+    Class returns jsonified response from the backend to frontend. Sample response: {'result': 'passed'}
+    
+    Caller: None
+    """
+    def post(self, request: QueryDict, *args, **kwargs) -> str:
         payload = request.body
         data = json.loads(payload)
 
@@ -28,3 +38,4 @@ class HandleFrontendData(View):
 
 
         return JsonResponse(data)
+        

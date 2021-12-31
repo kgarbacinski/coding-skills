@@ -5,6 +5,5 @@ from .views import *
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('about/', views.about, name='about'),
     path('<slug:task_name>/', ExercisesDetailView.as_view(), name='exercise-detail'),
 ]

@@ -4,18 +4,15 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
 def home(request):
+    """
+    'Home' page view. Uses home.html template for render and reads the data from DB.
+    """
     return render(request, 'exercises/home.html', 
     {
         'title': 'Home',
         'text': 'Welcome to Coding Exercises!',
         'tasks': Tasks.objects.all()
         })
-
-def about(request): 
-    return render(request, 'exercises/about.html', 
-    {
-        'title': 'About', 
-        'text': 'Lorem Ipsum'})
 
 
 class ExercisesDetailView(DetailView):
