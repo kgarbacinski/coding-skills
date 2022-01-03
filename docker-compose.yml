@@ -3,11 +3,15 @@ version: '3'
 services: 
   web-app:
     build: .
-    container_name: app
-    command: >
-      sh-c "python manage.py makemigrations &&
-            python manage.py migrate &&
-            python manage.py runserver 0.0.0.0:8000"
+    container_name: web-app
+    entrypoint: [ "/bin/sh","-c" ]
+    environment:
+      - PYTHONUNBUFFERED=1
+    command:
+      - | 
+        python3 manage.py makemigrations
+        python3 manage.py migrate
+        python3 manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
     depends_on:
