@@ -4,6 +4,6 @@ from .views import *
 
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', views.ExerciseHomeView.as_view(), name='home'),
     path('<slug:task_name>/', ExercisesDetailView.as_view(), name='exercise-detail'),
 ]

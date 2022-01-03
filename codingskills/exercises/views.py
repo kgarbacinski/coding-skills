@@ -1,19 +1,12 @@
-from django.shortcuts import render
 from .models import Tasks, Tests
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
-def home(request):
-    """
-    'Home' page view. Uses home.html template for render and reads the data from DB.
-    """
-    return render(request, 'exercises/home.html', 
-    {
-        'title': 'Home',
-        'text': 'Welcome to Coding Exercises!',
-        'tasks': Tasks.objects.all()
-        })
 
+class ExerciseHomeView(ListView): 
+    model = Tasks
+    template_name = 'exercises/home.html'
+    context_object_name = 'tasks'
 
 class ExercisesDetailView(DetailView):
     model = Tasks
