@@ -19,13 +19,11 @@ services:
 
   exercises-db:
     image: postgres:12.5
-    env_file:
-      - codingskills/codingskills/.env
     container_name: exercises-db
     environment:
-      - POSTGRES_DB=$${DATABASE_NAME}
-      - POSTGRES_USER=$${DATABASE_USER}
-      - POSTGRES_PASSWORD=$${DATABASE_PASSWORD}
+      - POSTGRES_DB=codingskills_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
       - "5432:5432"
     volumes:
