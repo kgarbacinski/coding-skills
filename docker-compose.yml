@@ -18,7 +18,7 @@ services:
   exercises-db:
     image: postgres:12.5
     env_file:
-      - codingskills/.env
+      - codingskills/codingskills/.env
     container_name: exercises-db
     environment:
       - POSTGRES_DB=$${DATABASE_NAME}
