@@ -1,5 +1,6 @@
 from pathlib import Path
 import environ
+import os
 
 from django.core.management.utils import get_random_secret_key
 
@@ -57,14 +58,19 @@ TEMPLATES = [
 WSGI_APPLICATION = 'codingskills.wsgi.application'
 
 
+#Setup localhost as default for development, but when run by CI host is changed to DB in container.
+DB_HOST = 'localhost'
+if os.environ['IF_REMOTE_EXEC']:
+    DB_HOST = 'exercises-db'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': env('DATABASE_NAME'),
         'USER': env('DATABASE_USER'),
         'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': env('HOST'),
-        'PORT': env('PORT'),
+        'HOST': DB_HOST,
+        'PORT': 5432,
     }
 
 }
