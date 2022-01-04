@@ -58,19 +58,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'codingskills.wsgi.application'
 
 
-#Setup localhost as default for development, but when run by CI host is changed to DB in container.
-DB_HOST = 'localhost'
-
-if os.getenv('TRAVIS', None):
-    DB_HOST = 'exercises-db'
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': env('DATABASE_NAME'),
         'USER': env('DATABASE_USER'),
         'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': DB_HOST,
+        'HOST': 'localhost',
         'PORT': 5432,
     }
 
