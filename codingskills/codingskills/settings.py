@@ -60,7 +60,8 @@ WSGI_APPLICATION = 'codingskills.wsgi.application'
 
 #Setup localhost as default for development, but when run by CI host is changed to DB in container.
 DB_HOST = 'localhost'
-if os.environ['IF_REMOTE_EXEC']:
+
+if os.get_env('TRAVIS', None):
     DB_HOST = 'exercises-db'
 
 DATABASES = {
@@ -69,7 +70,7 @@ DATABASES = {
         'NAME': env('DATABASE_NAME'),
         'USER': env('DATABASE_USER'),
         'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': DB_HOST,
+        'HOST': 'localhost',
         'PORT': 5432,
     }
 
