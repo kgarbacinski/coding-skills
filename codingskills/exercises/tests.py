@@ -32,11 +32,10 @@ Test models
 from exercises.models import Tasks, Tests
 
 class TestTasksModel(TestCase):
-
+    @classmethod
     def generateTestData(cls) -> None:
         record = Tasks(task_id = 999, task_name = 'Test task', task_content = 'Test task content')
         record.save()
- 
 
     def setUp(self) -> None:
         self.generateTestData()
@@ -46,7 +45,7 @@ class TestTasksModel(TestCase):
         self.assertEqual(self.test_task.task_id, 999, msg="Task should equal: 999")
 
     def test_task_title_content(self) -> None:
-        expected_task_name = "Test Task"
+        expected_task_name = "Test task"
 
         self.assertEqual(
             self.test_task.task_name, expected_task_name, msg="Title should be 'Test task'"
@@ -56,5 +55,5 @@ class TestTasksModel(TestCase):
         expected_task_content = 'Test task content'
 
         self.assertEqual(
-            self.test_task.task_name, expected_task_content, msg="Content should be 'Test task content'"
+            self.test_task.task_content, expected_task_content, msg="Content should be 'Test task content'"
         )
