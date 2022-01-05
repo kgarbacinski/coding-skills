@@ -57,8 +57,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'codingskills.wsgi.application'
 
+
+
 DB_HOST = 'localhost'
-if os.getenv('TRAVIS', None):
+if env('STAGE'):
     DB_HOST = 'exercises-db'
 
 DATABASES = {

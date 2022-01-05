@@ -7,7 +7,6 @@ services:
     entrypoint: [ "/bin/sh","-c" ]
     environment:
       - PYTHONUNBUFFERED=1
-      - POSTGRES_HOST=exercises-db
     command:
       - | 
         python3 manage.py makemigrations
