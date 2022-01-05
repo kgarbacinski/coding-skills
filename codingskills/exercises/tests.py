@@ -61,7 +61,11 @@ class TestTasksModel(TestCase):
 class TestTestsModel(TestCase):
     @classmethod
     def generateTestData(cls):
+        create_tasks_record = Tasks(task_id = 999, task_name = 'Test task', task_content = 'Test task content')
+        create_tasks_record.save()
+
         tasks_record = Tasks.objects.get(task_id = 999)
+        
         tests_record = Tests(
             test_id = 999, 
             task_id = tasks_record, 
