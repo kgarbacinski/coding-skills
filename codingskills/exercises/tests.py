@@ -29,7 +29,7 @@ class TestExercisesDetailView(TestCase):
 '''
 Test models
 '''
-from models import Tasks, Tests
+from exercises.models import Tasks, Tests
 
 class TestTasksModel(TestCase):
     @classmethod
