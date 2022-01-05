@@ -42,7 +42,7 @@ class TestTasksModel(TestCase):
         self.test_task = Tasks.objects.get(task_id = 999)
 
     def test_get_task_id(self) -> None:
-        self.assertEqual(self.test_task.task_id, 999, msg="Task should equal: 999")
+        self.assertEqual(self.test_task.task_id, 999, msg="Task should be equal: 999")
 
     def test_task_title_content(self) -> None:
         expected_task_name = "Test task"
@@ -56,4 +56,46 @@ class TestTasksModel(TestCase):
 
         self.assertEqual(
             self.test_task.task_content, expected_task_content, msg="Content should be 'Test task content'"
+        )
+
+class TestTestsModel(TestCase):
+    @classmethod
+    def generateTestData(cls):
+        tasks_record = Tasks.objects.get(task_id = 999)
+        tests_record = Tests(
+            test_id = 999, 
+            task_id = tasks_record, 
+            test_input = 'Hello',
+            test_output = 'World',
+            test_language = 'Python', 
+            )
+
+        tests_record.save()
+
+    def setUp(self) -> None:
+        self.generateTestData()
+        self.test_id = Tests.objects.get(test_id = 999)
+
+    def test_get_test_id(self) -> None:
+        self.assertEqual(self.test_id.test_id, 999, msg="Test should be equal: 999")
+
+    def test_test_input(self) -> None:
+        expected_test_input = 'Hello'
+
+        self.assertEqual(
+            self.test_id.test_input, expected_test_input, msg="Input should be 'Hello'"
+        )
+
+    def test_test_output(self) -> None:
+        expected_test_output = 'World'
+
+        self.assertEqual(
+            self.test_id.test_output, expected_test_output, msg="Output should be 'World'"
+        )
+
+    def test_test_output(self) -> None:
+        expected_test_language = 'Python'
+
+        self.assertEqual(
+            self.test_id.test_language, expected_test_language, msg="Language should be 'Python'"
         )
