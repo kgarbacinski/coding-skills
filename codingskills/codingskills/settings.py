@@ -57,6 +57,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'codingskills.wsgi.application'
 
+DB_HOST = 'localhost'
+if os.getenv('TRAVIS', None):
+    DB_HOST = 'exercises-db'
 
 DATABASES = {
     'default': {
@@ -64,7 +67,7 @@ DATABASES = {
         'NAME': env('DATABASE_NAME'),
         'USER': env('DATABASE_USER'),
         'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': 'localhost',
+        'HOST': DB_HOST,
         'PORT': 5432,
     }
 
