@@ -7,7 +7,6 @@ services:
 
 before_script:
   - pip3 install docker-compose
-  - echo STAGE=prod >> codingskills/codingskills/.env
 
 install:
   - pip3 install -r requirements.txt

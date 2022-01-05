@@ -57,19 +57,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'codingskills.wsgi.application'
 
-
-
-DB_HOST = 'localhost'
-if env('STAGE'):
-    DB_HOST = 'exercises-db'
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': env('DATABASE_NAME'),
         'USER': env('DATABASE_USER'),
         'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': DB_HOST,
+        'HOST': 'exercise_db',
         'PORT': 5432,
     }
 
