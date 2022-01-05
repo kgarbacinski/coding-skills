@@ -63,7 +63,7 @@ DATABASES = {
         'NAME': env('DATABASE_NAME'),
         'USER': env('DATABASE_USER'),
         'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': 'exercise_db',
+        'HOST': 'exercises_db',
         'PORT': 5432,
     }
 
