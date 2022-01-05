@@ -32,16 +32,14 @@ Test models
 from exercises.models import Tasks, Tests
 
 class TestTasksModel(TestCase):
-    
-    def __init__(self):
-        self.generateTestData()
 
-    def generateTestData(self) -> None:
+    def generateTestData(cls) -> None:
         record = Tasks(task_id = 999, task_name = 'Test task', task_content = 'Test task content')
         record.save()
  
 
     def setUp(self) -> None:
+        self.generateTestData()
         self.test_task = Tasks.objects.get(task_id = 999)
 
     def test_get_task_id(self) -> None:
