@@ -5,24 +5,24 @@ Test views
 '''
 
 class TestHomeView(TestCase):
-    HOME_URL = '/'
+    URL = '/'
 
     def setUp(self):
         self.client = Client()
 
     def test_should_return_200_when_app_is_running(self) -> None:
-        response = self.client.get(TestHomeView.HOME_URL)
+        response = self.client.get(TestHomeView.URL)
 
         self.assertEqual(response.status_code, 200)
 
 class TestExercisesDetailView(TestCase):
-    HOME_URL = '/palindrome'
+    URL = '/palindrome'
 
     def setUp(self):
         self.client = Client()
 
     def test_should_return_200_when_palindrome_window_is_rendered(self) -> None:
-        response = self.client.get(TestHomeView.HOME_URL)
+        response = self.client.get(TestExercisesDetailView.URL)
 
         self.assertEqual(response.status_code, 200)
 
@@ -58,6 +58,7 @@ class TestTasksModel(TestCase):
             self.test_task.task_content, expected_task_content, msg="Content should be 'Test task content'"
         )
 
+
 class TestTestsModel(TestCase):
     @classmethod
     def generateTestData(cls):
@@ -65,7 +66,7 @@ class TestTestsModel(TestCase):
         create_tasks_record.save()
 
         tasks_record = Tasks.objects.get(task_id = 999)
-        
+
         tests_record = Tests(
             test_id = 999, 
             task_id = tasks_record, 
