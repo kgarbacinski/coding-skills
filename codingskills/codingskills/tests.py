@@ -13,7 +13,7 @@ class TestMainURL(TestCase):
     def test_should_return_redirect_when_main_route_is_loaded(self) -> None:
         response = self.client.get(TestMainURL.URL)
 
-        self.assertEqual(response.status_code, 301)
+        self.assertEqual(response.status_code, 200)
 
 class TestAdminURL(TestCase):
     URL = '/palindrome'

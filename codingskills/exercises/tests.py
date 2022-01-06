@@ -21,10 +21,10 @@ class TestExercisesDetailView(TestCase):
     def setUp(self):
         self.client = Client()
 
-    def test_should_return_200_when_palindrome_window_is_rendered(self) -> None:
+    def test_should_return_301_when_palindrome_window_is_rendered(self) -> None:
         response = self.client.get(TestExercisesDetailView.URL)
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 301)
 
 '''
 Test models
