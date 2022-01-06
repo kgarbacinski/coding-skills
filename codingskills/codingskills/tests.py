@@ -10,10 +10,10 @@ class TestMainURL(TestCase):
     def setUp(self):
         self.client = Client()
 
-    def test_should_return_200_when_main_route_is_loaded(self) -> None:
+    def test_should_return_redirect_when_main_route_is_loaded(self) -> None:
         response = self.client.get(TestMainURL.URL)
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 301)
 
 class TestAdminURL(TestCase):
     URL = '/palindrome'
@@ -21,7 +21,7 @@ class TestAdminURL(TestCase):
     def setUp(self):
         self.client = Client()
 
-    def test_should_return_200_when_admin_url_is_loaded(self) -> None:
+    def test_should_return_redirect_when_admin_url_is_loaded(self) -> None:
         response = self.client.get(TestAdminURL.URL)
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 301)

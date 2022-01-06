@@ -1,6 +1,5 @@
 from django.test import TestCase
 from checker.handlers import ContainerHandler, FilesHandler
-from language_specs import LanguageSpecs
 
 class TestContainerHandler(TestCase):
     def setUp(self):
