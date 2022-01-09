@@ -7,7 +7,7 @@ class Tasks(models.Model):
     Fields:
         task_id (primary_key): int. 
         task_name: string. Sample value - 'palindrome'
-        task_content: string. Sample value - 'Check if given string is palindrome. Function should return boolean value <True> or <False>.'
+        task_content: string. Sample value - 'Check if given string is a palindrome. Function should return boolean value <True> or <False>.'
         task_created: timestamp.
 
     One task can contain multiple tests (1 per language).

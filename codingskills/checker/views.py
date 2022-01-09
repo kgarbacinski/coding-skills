@@ -11,9 +11,9 @@ from .execute_test import ExecuteTest
 
 class HandleFrontendData(View):
     """
-    This is the endpoint for frontend to get the data and call ExecuteTest to initiate the sequence code validation.
+    This is the endpoint for frontend to get data and call ExecuteTest to initiate the sequence of code validation.
     Threading implemented to cleanup generated file from FilesHandler and stop container run by ContainerHandler.
-    Class returns jsonified response from the backend to frontend. Sample response: {'result': 'passed'}
+    Class returns jsonified response from backend to frontend. Sample response: {'result': 'passed'}
     
     Caller: None
     """
