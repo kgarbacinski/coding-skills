@@ -38,8 +38,9 @@ The app allows you to input your code as a part of the task and run it though a 
 * Postgres 14.1
 * Docker 4.1
 * Docker-compose 1.29
-* Javascript
+* JavaScript
 * Travis CI 
+* XML
 
 ## How to run locally
 * Clone repository locally
