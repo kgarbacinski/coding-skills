@@ -23,6 +23,7 @@ The app allows you to input your code as a part of the task and run it though a 
 6. Available result is copied from the container to local server storage
 7. Server reads the content of result.txt file and sends it back to front-end
 8. Front-end view is updated
+9. Container is killed and files from local environment are removed
 
 ### Basic system design
 ![image](https://github.com/dyeroshenko/coding-skills/blob/main/system_design.png)
