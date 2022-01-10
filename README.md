@@ -1,4 +1,4 @@
-[![Build Status](https://app.travis-ci.com/dyeroshenko/coding-exercises.svg?branch=main)](https://app.travis-ci.com/dyeroshenko/coding-exercises)
+[![Build Status](https://app.travis-ci.com/dyeroshenko/coding-skills.svg?branch=main)](https://app.travis-ci.com/dyeroshenko/coding-skills)
 
 # coding-skills
  
