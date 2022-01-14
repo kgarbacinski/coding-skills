@@ -1,11 +1,12 @@
 from django.test import TestCase, Client
 
-'''
+"""
 Test URLs
-'''
+"""
+
 
 class TestMainURL(TestCase):
-    URL = '/'
+    URL = "/"
 
     def setUp(self):
         self.client = Client()
@@ -15,8 +16,9 @@ class TestMainURL(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
+
 class TestAdminURL(TestCase):
-    URL = '/palindrome'
+    URL = "/palindrome"
 
     def setUp(self):
         self.client = Client()

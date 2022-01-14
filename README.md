@@ -1,18 +1,18 @@
 [![Build Status](https://app.travis-ci.com/dyeroshenko/coding-skills.svg?branch=main)](https://app.travis-ci.com/dyeroshenko/coding-skills)
 
 # coding-skills
- 
-This is a Django-based application for remote code execution in Docker containers wrapped as a small programming challenge (inspired by [algoexpert.io](https://www.algoexpert.io/product) & [educative.io](https://www.educative.io/) learning paths) 😉. 
+
+This is a Django-based application for remote code execution in Docker containers wrapped as a small programming challenge (inspired by [algoexpert.io](https://www.algoexpert.io/product) & [educative.io](https://www.educative.io/) learning paths) 😉.
 
 ## Functionality
 
-The app allows you to input your code as a part of the task and run it though a validation process. 
+The app allows you to input your code as a part of the task and run it though a validation process.
 
 ### Main view
-![image](https://github.com/dyeroshenko/coding-skills/blob/main/main_view.gif)
+![image](https://github.com/dyeroshenko/coding-skills/blob/main/preview_files/main_view.gif)
 
 ### Task view
-![image](https://github.com/dyeroshenko/coding-skills/blob/main/task_view.gif)
+![image](https://github.com/dyeroshenko/coding-skills/blob/main/preview_files/task_view.gif)
 
 ### How it works?
 1. User is asked to write a solution in prefered language
@@ -26,7 +26,7 @@ The app allows you to input your code as a part of the task and run it though a 
 9. Container is killed and files from local environment are removed
 
 ### Basic system design
-![image](https://github.com/dyeroshenko/coding-skills/blob/main/system_design.png)
+![image](https://github.com/dyeroshenko/coding-skills/blob/main/preview_files/system_design.png)
 
 ### Supported input languages
 * Python
@@ -40,7 +40,7 @@ The app allows you to input your code as a part of the task and run it though a 
 * Docker 4.1
 * Docker-compose 1.29
 * JavaScript
-* Travis CI 
+* Travis CI
 * XML
 
 ## How to run locally

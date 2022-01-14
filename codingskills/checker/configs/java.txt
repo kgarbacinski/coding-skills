@@ -18,7 +18,7 @@ class Validator {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse("./exec_files/input_values.xml");
             doc.getDocumentElement().normalize();
-            
+
             String i = doc.getElementsByTagName("input").item(0).getTextContent();
             String o = doc.getElementsByTagName("output").item(0).getTextContent();
             input = i;
@@ -31,7 +31,7 @@ class Validator {
         } catch (SAXException e) {
             e.printStackTrace();
         }
-        
+
         String[] result = {input, output};
         return result;
     }

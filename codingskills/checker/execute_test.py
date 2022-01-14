@@ -15,20 +15,29 @@ class ExecuteTest:
         files_handler: initialized FilesHandler class
 
 
-    Methods: 
+    Methods:
         container_handler: returns the instance of ContainerHandler
         container_handler: returns the instance of FilesHandler
-    
+
     Caller: HandleFrontendData() from views.py
     """
+
     def __init__(self, input: str, output: str, code: str, language: str) -> None:
         self.__code = code
         self.__input = input
         self.__output = output
         self.__language = language
         self.__container_name = uuid.uuid1()
-        self.__container_handler = ContainerHandler(self.__language, self.__container_name)
-        self.__files_handler = FilesHandler(self.__input, self.__output, self.__code, self.__language, self.__container_name)
+        self.__container_handler = ContainerHandler(
+            self.__language, self.__container_name
+        )
+        self.__files_handler = FilesHandler(
+            self.__input,
+            self.__output,
+            self.__code,
+            self.__language,
+            self.__container_name,
+        )
 
     @property
     def container_handler(self) -> ContainerHandler:
@@ -44,6 +53,5 @@ class ExecuteTest:
         self.__files_handler.copy_files_to_container()
         self.__container_handler.run_compiler()
         self.__files_handler.copy_result_from_container()
-        
-        return self.__files_handler.get_result_value()
 
+        return self.__files_handler.get_result_value()

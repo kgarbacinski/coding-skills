@@ -1,5 +1,5 @@
 /**
- * @fileoverview 
+ * @fileoverview
  * Main JS file to handle POST requests to backend
  * and modify the layout in frontent.
  */
@@ -26,9 +26,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }`,
         'Node': `function solution(value) {
     //Type your code here:
-    
+
 }
-        
+
 module.exports = { solution };`,
     }
 
@@ -53,12 +53,12 @@ module.exports = { solution };`,
     };
 
     /**
-     * @function 
-     * @param {str} language 
-     * 
+     * @function
+     * @param {str} language
+     *
      * POSTs the data collected from the view to the backend to host/checker/post/
      * Collects jsonified response from backend (sample: {'response': 'passed'})
-     * Calls handleFrontEnd() and passes response 
+     * Calls handleFrontEnd() and passes response
      */
     async function sendData(language) {
         submitButton.addEventListener('click', async function(event) {
@@ -86,8 +86,8 @@ module.exports = { solution };`,
 
     /**
      * @function
-     * @param {str} data 
-     * 
+     * @param {str} data
+     *
      * If data is avalable  renders & modifies result div
      * Applies CSS style based on the data content
      * After response is received and changes rendered, reloads the page after 5 seconds.
@@ -114,9 +114,9 @@ module.exports = { solution };`,
 
     /**
      * @function
-     * @param {str} name 
+     * @param {str} name
      * @returns str
-     * 
+     *
      * Supportive function to generate csrftoken.
      */
     function generateCookie(name) {

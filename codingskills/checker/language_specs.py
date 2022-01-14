@@ -2,30 +2,27 @@ from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
-class LanguageSpecs():
+class LanguageSpecs:
     """
     This class is used to store path to config files & language specific extensions / commands.
-    
-    Callers: 
+
+    Callers:
         ContainerHandler
         FilesHandler
     """
+
     code_validators = {
-        'python': 'checker/configs/py.txt',
-        'java': 'checker/configs/java.txt',
-        'node': 'checker/configs/nodejs.txt'
+        "python": "checker/configs/py.txt",
+        "java": "checker/configs/java.txt",
+        "node": "checker/configs/nodejs.txt",
     }
 
-    language_extensions = {
-        'python': 'py',
-        'java': 'java',
-        'node': 'js'
-    }
+    language_extensions = {"python": "py", "java": "java", "node": "js"}
 
     language_compilers = {
-        'python': ['python3'],
-        'java': ['javac', 'java'],
-        'node': ['node']
+        "python": ["python3"],
+        "java": ["javac", "java"],
+        "node": ["node"],
     }
 
-    xml_template = 'checker/configs/xml_template.txt'
+    xml_template = "checker/configs/xml_template.txt"

@@ -1,6 +1,6 @@
 version: '3'
 
-services: 
+services:
   web-app:
     build: .
     container_name: web-app
@@ -9,7 +9,7 @@ services:
       - PYTHONUNBUFFERED=1
       - POSTGRES_HOST=exercises-db
     command:
-      - | 
+      - |
         python3 manage.py makemigrations
         python3 manage.py migrate && python3 manage.py migrate --run-syncdb
         python3 manage.py runserver
